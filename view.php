@@ -15,9 +15,15 @@
 
     //選択した投稿の情報取得
     $sql = sprintf('SELECT * FROM posts WHERE id=%d ',
-      mysqli_real_escape_string($db, $_REQUEST['id'])
-      );
+                    mysqli_real_escape_string($db, $_REQUEST['id'])
+                    );
     $posts = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+    //コメントの取得
+    $sql = sprintf('SELECT * FROM comments WHERE reply_post_id=%d ',
+                    mysqli_real_escape_string($db, $_REQUEST['id'])
+                    );
+    $comments = mysqli_query($db, $sql) or die(mysqli_error($db));
 ?>
 
 <!DOCTYPE html>
@@ -45,9 +51,17 @@
           <p>そのページは存在しないかURLが間違っています。</p>
           <?php endif; ?>
         <?php endif ;?>
+        <hr>
+        <p>コメントの表示</p>
+        <?php while($comment = mysqli_fetch_assoc($comments)): ?>
+            <div>
+              <?php echo $comment["comment"];?>
+            </div>
+        <?php endwhile; ?>
       </div>
     </div>
   </div>
+  <a href="comment.php?id=<?php echo $post["id"];?>">コメントする</a>
 
 </body>
 </html>

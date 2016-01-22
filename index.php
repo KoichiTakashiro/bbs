@@ -151,7 +151,7 @@
                     echo '<textarea name="message" cols="250" rows="10"></textarea>' ;
                   }
               ?>
-              <!-- パスワードに対するエラー表示 -->
+              <!-- コメントに対するエラー表示 -->
               <?php if (isset($error["message"])): ?>
                    <?php if ($error["message"] == 'blank'): ?>
                        <p class="error">* 本文を入力してください</p>
